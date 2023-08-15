@@ -1,5 +1,6 @@
+import Provider from "@/components/Provider";
 import Nav from "@/components/Nav";
-import "../styles/global.css"
+import "../styles/global.css";
 
 export const metadata = {
   title: "Prompt Hub",
@@ -10,11 +11,14 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-        <div className="background" />
+        <Provider>
+          <div className="background bg-neutral-800" />
 
-        <main className="main">
-          <Nav />
-          {children}</main>
+          <main className="main">
+            <Nav />
+            {children}
+          </main>
+        </Provider>
       </body>
     </html>
   );

@@ -4,6 +4,10 @@
 @tailwind components;
 @tailwind utilities;
 
+.main {
+    @apply relative z-10 flex flex-col items-center justify-center max-w-7xl mx-auto sm:px-16 px-6;
+}
+
 .background {
     position: fixed;
     z-index: -10;
@@ -12,6 +16,17 @@
     bottom: 0;
     left: 0;
     right: 0;
-
-background-color: #333333;
 } 
+
+.glassmorphism {
+    @apply rounded-xl border border-gray-200 bg-white shadow-[inset_10px_-50px_94px_0_rgb(199,199,199,0,2)] backdrop-blur p-5;
+}
+
+.blue-gradient {
+    @apply bg-gradient-to-t from-blue-600 to-cyan-600 bg-clip-text text-transparent;
+}
+
+.orange-gradient {
+    @apply bg-gradient-to-r from-amber-500 via-orange-600 to-yellow-500 bg-clip-text text-transparent;
+}
+
