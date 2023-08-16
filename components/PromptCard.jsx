@@ -29,6 +29,8 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
       console.log(liked, disliked);
       return { liked, disliked };
     })
+
+    updateLikes();
   }
 
   const handleDislike = () => {
@@ -39,6 +41,16 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
 
       return { liked, disliked };
     })
+  }
+
+  const updateLikes = async () => {
+    const response = await fetch(`/api/prompt/${post._id}/like`, {
+      method: "POST",
+      body: JSON.stringify(session.user.id),
+    });
+
+    // FOR DEVELOPMENT PURPOSES
+    if (!response.ok) alert("Prompt liked suscessfully");
   }
 
   return (
@@ -90,6 +102,7 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
 
       {pathname !== "/profile" && (
         <div className="flex justify-end gap-3">
+          { post.likes.length > 0 && <p className="font-inter text-sm text-gray-500">{post.likes.length}</p> }
           <TbArrowBigUpLineFilled
            fontSize={20}
             color={interactions.liked ? "green" : "gray"}
