@@ -5,14 +5,23 @@ import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { usePathname, useRouter } from "next/navigation";
 import { MdContentCopy, MdDone } from "react-icons/md";
-import { TbArrowBigDownLineFilled, TbArrowBigUpLineFilled } from "react-icons/tb";
+import {
+  TbArrowBigDownLineFilled,
+  TbArrowBigUpLineFilled,
+} from "react-icons/tb";
 
 const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
-  const [interactions, setInteractions] = useState({ liked: false, disliked: false });
   const [copied, setCopied] = useState("");
   const { data: session } = useSession();
   const pathname = usePathname();
   const router = useRouter();
+  // This is a hacky way to get the number of likes to update without having to do another request
+  const [likes, setLikes] = useState(post.likes.length);
+
+  const [interactions, setInteractions] = useState({
+    liked: post.likes.includes(session?.user.id || false),
+    disliked: post.dislikes.includes(session?.user.id || false),
+  });
 
   const goToProfile = (id) => router.push(`/profile/${id}`);
 
@@ -23,35 +32,47 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
   };
 
   const handleLike = () => {
-    setInteractions(prev => {
+    setInteractions((prev) => {
       const liked = !prev.liked;
       const disliked = liked ? false : prev.disliked;
-      console.log(liked, disliked);
+      if (liked) {
+        setLikes((prev) => prev + 1);
+      } else {
+        setLikes((prev) => prev - 1);
+      }
       return { liked, disliked };
-    })
+    });
 
     updateLikes();
-  }
+  };
 
   const handleDislike = () => {
-    setInteractions(prev => {
+    setInteractions((prev) => {
       const disliked = !prev.disliked;
       const liked = disliked ? false : prev.liked;
-      console.log(liked, disliked);
+      if (disliked && prev.liked) {
+        setLikes((prev) => prev - 1);
+      }
 
       return { liked, disliked };
-    })
-  }
+    });
+
+    updateDislikes();
+  };
 
   const updateLikes = async () => {
-    const response = await fetch(`/api/prompt/${post._id}/like`, {
+    await fetch(`/api/prompt/${post._id}/like`, {
       method: "POST",
       body: JSON.stringify(session.user.id),
     });
+  };
 
-    // FOR DEVELOPMENT PURPOSES
-    if (!response.ok) alert("Prompt liked suscessfully");
-  }
+  const updateDislikes = async () => {
+    await fetch(`/api/prompt/${post._id}/dislike`, {
+      method: "POST",
+      body: JSON.stringify(session.user.id),
+    });
+  };
 
   return (
     <div className="flex-1 rounded-lg border border-gray-300 bg-clip-padding p-6 pb-4 bg-white/90 break-inside-avoid backdrop-blur-lg backdrop-filter md:w-[360px] w-full h-fit">
@@ -102,9 +123,13 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
 
       {pathname !== "/profile" && (
         <div className="flex justify-end gap-3">
-          { post.likes.length > 0 && <p className="font-inter text-sm text-gray-500">{post.likes.length}</p> }
+          {post.likes.length > 0 && (
+            <p className="font-inter text-sm text-gray-500">
+              {likes}
+            </p>
+          )}
           <TbArrowBigUpLineFilled
-           fontSize={20}
+            fontSize={20}
             color={interactions.liked ? "green" : "gray"}
             onClick={handleLike}
             style={{ cursor: "pointer" }}
