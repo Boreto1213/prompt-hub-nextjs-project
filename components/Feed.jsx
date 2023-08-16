@@ -3,11 +3,11 @@
 import { useState, useEffect } from "react";
 import PromptCard from "./PromptCard";
 
-const PromptCardList = ({ data, handleClick }) => {
+const PromptCardList = ({ data, handleTagClick }) => {
   return (
     <div className="mt-16 space-y-6 py-8 sm:columns-2 sm:gap-6 xl:columns-3">
       {data.map((post) => (
-        <PromptCard key={post.id} post={post} handleClick={handleClick} />
+        <PromptCard key={post.id} post={post} handleTagClick={handleTagClick} />
       ))}
     </div>
   );
@@ -19,7 +19,6 @@ const Feed = () => {
 
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
-    console(e.target.value);
   };
 
   const filterPosts = (posts) =>
@@ -47,6 +46,7 @@ const Feed = () => {
           type="text"
           placeholder="Search for a tag or a username"
           onChange={handleSearchChange}
+          value={searchQuery}
           required
           className="block w-full text-white/90 rounded-md border-black border bg-neutral-700 py-2.5 font-satoshi pl-5 pr-12 text-sm shadow-lg font-medium focus:border-gray-200 focus:outline-none focus:ring-0 peer"
         />
@@ -54,7 +54,7 @@ const Feed = () => {
 
       <PromptCardList
         data={searchQuery === "" ? posts : filterPosts(posts)}
-        handleTagClick={() => {}}
+        handleTagClick={setSearchQuery}
       />
     </section>
   );
