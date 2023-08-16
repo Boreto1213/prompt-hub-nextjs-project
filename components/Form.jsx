@@ -26,6 +26,7 @@ const Form = ({ type, post, setPost, submitting, handleSubmit }) => {
           rows="10"
           placeholder="Write your prompt here..."
           required
+          value={post.prompt}
           onChange={(e) => setPost({ ...post, prompt: e.target.value })}
           className="w-full rounded-lg h-[200px] mt-2 p-3 text-sm text-white/90 outline-0 bg-neutral-700"
         />
@@ -36,12 +37,13 @@ const Form = ({ type, post, setPost, submitting, handleSubmit }) => {
           </span>
         </label>
         <input
-          name="prompt"
+          name="tag"
           cols="30"
           rows="10"
           placeholder="Write your tag here..."
           required
-          onChange={(e) => setPost({ ...post, prompt: e.target.value })}
+          value={post.tag}
+          onChange={(e) => setPost({ ...post, tag: e.target.value })}
           className="w-full rounded-lg mt-2 p-3 text-sm text-white/90 outline-0 bg-neutral-700"
         />
 

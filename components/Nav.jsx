@@ -41,24 +41,45 @@ const Nav = () => {
         </p>
       </Link>
 
+      {/* width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #fff;
+  box-shadow:
+    0 0 60px 30px #fff,   inner white 
+    0 0 100px 60px #f0f, middle magenta 
+    0 0 140px 90px #0ff; * outer cyan */}
+
       {/* Desktop navigation */}
       <div className="sm:flex hidden gap-3 text-orange-400">
         {session?.user && (
           <>
             <Link
               href="/create-prompt"
-              className="hover:shadow-[0_4px_8px_rgba(0,0,0,0.1)] hover: text-xl font-medium rounded-xl md:w-40 text-center leading-6 p-3 hover:bg-neutral-700 hover:text-orange-500 transition-colors duration-250 ease-in-out"
+              className="hover:shadow-[0_4px_8px_rgba(0,0,0,0.3)] text-xl font-medium rounded-xl md:w-40 text-center leading-6 p-3 hover:text-orange-500 transition duration-250 ease-in-out"
             >
               Create post
             </Link>
+            
             <Link
               href="/profile"
-              className="hover:shadow-[0_4px_8px_rgba(0,0,0,0.1)] text-xl font-medium rounded-xl text-center  md:w-40 leading-6 p-3 hover:bg-neutral-700 hover:text-orange-500 transition-colors duration-250 ease-in-out"
+              className="hover:shadow-[0_4px_8px_rgba(0,0,0,0.3)] text-xl font-medium rounded-xl text-center  md:w-40 leading-6 p-3 hover:text-orange-500 transition duration-250 ease-in-out"
             >
               Profile
             </Link>
           </>
         )}
+        
+        {session?.user && (
+          <Image
+            src={session?.user.image}
+            width={48}
+            height={48}
+            className="object-contain rounded-full"
+            alt="profile picture"
+          />
+        )}
+        
         {providers &&
           Object.values(providers).map((provider) => (
             <button
@@ -71,20 +92,11 @@ const Nav = () => {
                   signIn(provider.id);
                 }
               }}
-              className="bg-orange-500 text-white text-xl font-medium rounded-xl text-center  md:w-40 leading-6 p-3 hover:bg-orange-600 transition-colors duration-250 ease-in-out"
+              className="text-orange-400 hover:text-orange-500 text-xl font-medium rounded-xl text-center  md:w-40 leading-6 p-3 transition duration-250 ease-in-out"
             >
               {session?.user ? "Sign out" : "Sign in"}
             </button>
           ))}
-        {session?.user && (
-          <Image
-            src={session?.user.image}
-            width={48}
-            height={48}
-            className="rounded-full"
-            alt="profile picture"
-          />
-        )}
       </div>
 
       {/* Mobile navigation */}
