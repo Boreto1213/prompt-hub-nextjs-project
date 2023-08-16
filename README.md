@@ -1,6 +1,7 @@
 ## Screenshot
 
-![image](https://github.com/Boreto1213/prompt-hub-nextjs-project/assets/95682724/e2f94846-3404-4866-bd4b-f708378a00dd)
+![image](https://github.com/Boreto1213/prompt-hub-nextjs-project/assets/95682724/7b13764d-7434-4c16-a52c-fcc7beca307c)
+
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
