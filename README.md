@@ -4,7 +4,7 @@
 
 ## Checkout the deployed version
 
-[https://prompt-hub-nextjs-project-fh86ru84k-boreto1213.vercel.app/](https://prompt-hub-nextjs-project.vercel.app/)
+https://prompt-hub-nextjs-project.vercel.app/
 
 ## Getting Started
 
