@@ -123,7 +123,7 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
 
       {pathname !== "/profile" && (
         <div className="flex justify-end gap-3">
-          {post.likes.length > 0 && (
+          {likes > 0 && (
             <p className="font-inter text-sm text-gray-500">
               {likes}
             </p>
