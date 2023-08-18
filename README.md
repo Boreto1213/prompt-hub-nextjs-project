@@ -8,6 +8,8 @@ https://prompt-hub-nextjs-project.vercel.app/
 
 ## Getting Started
 
+You will need to add some environment variables
+
 First, run the development server:
 
 ```bash
